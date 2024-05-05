@@ -4,6 +4,7 @@ import 'routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:prueba2/services/auth_service.dart';
 import 'package:prueba2/services/product_service.dart';
+import 'package:prueba2/services/products_service.dart';
 
 void main() {
   runApp(const ProviderState());
@@ -18,6 +19,7 @@ class ProviderState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => ProductService()),
+        ChangeNotifierProvider(create: (_) => ProductsService()),
       ],
       child: const MainApp(),
     );

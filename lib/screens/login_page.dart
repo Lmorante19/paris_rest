@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:prueba2/services/auth_service.dart';
 import 'package:prueba2/providers/providers.dart';
 import 'package:prueba2/screens/screens.dart';
+import 'package:prueba2/services/products_service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
