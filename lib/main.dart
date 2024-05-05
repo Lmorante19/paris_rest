@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prueba2/providers/service_provider.dart';
+
 import 'routes/app_routes.dart';
 import 'package:provider/provider.dart';
+import 'package:prueba2/services/auth_service.dart';
+import 'package:prueba2/services/product_service.dart';
 
 void main() {
   runApp(const ProviderState());
@@ -14,7 +16,8 @@ class ProviderState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ServiceProvider(), lazy: false)
+        ChangeNotifierProvider(create: (_) => AuthService()),
+        ChangeNotifierProvider(create: (_) => ProductService()),
       ],
       child: const MainApp(),
     );

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../screens/screens.dart';
+import 'package:prueba2/screens/login_page.dart';
 
 class AppRoutes {
-  static const initialRoute = 'home';
+  static const initialRoute = 'login';
   static Map<String, Widget Function(BuildContext)> routes = {
-    'home': (BuildContext context) => const HomeScreen(),
+    'login': (BuildContext context) => const LoginPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {

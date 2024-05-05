@@ -73,23 +73,93 @@ class LoginForm extends StatelessWidget {
                   final String? errorMessage = await authService.login(
                       LoginForm.email, LoginForm.password);
                   if (errorMessage == null) {
+                    //showAlertDialog(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
                     );
-                    print('exito');
                   } else {
+                    showAlertDialog(context,'Error', errorMessage, false);
                     print(errorMessage);
                   }
                 } else {
+                  showAlertDialog(context,'Error', 'Ingresar campos obligatorios.', false);
                   print('datos invalidos');
                 }
               },
               child: Text('Iniciar Sesión'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (LoginForm.isValidForm()) {
+                  // enviar una solicitud HTTP al backend para autenticar al usuario
+                  final authService =
+                  Provider.of<AuthService>(context, listen: false);
+                  final String? errorMessage = await authService.create_user(
+                      LoginForm.email, LoginForm.password);
+                  if (errorMessage == null) {
+                    showAlertDialog(context,'Nuevo Usuario', 'Creación exitosa de nuevo usuario.', true);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                    // );
+                  } else {
+                    showAlertDialog(context,'Error', errorMessage, false);
+                  }
+                } else {
+                  showAlertDialog(context,'Error', 'Ingresar campos obligatorios.', false);
+                  print('datos invalidos');
+                }
+              },
+              child: Text('Crear Cuenta'),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String Message_title, String Message_Body, bool WithButtons) {
+
+  // Creación de botones para la alerta
+  Widget continueButton = TextButton(
+    child: Text("Continuar"),
+    onPressed:  () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    },
+  );
+
+  Widget okButton = TextButton(
+    child: Text("Ok"),
+    onPressed: () => Navigator.pop(context, 'OK'),
+  );
+  List <Widget> actions = <Widget>[];
+  if(WithButtons){
+    actions = [
+      continueButton,
+    ];
+  }else{
+    actions = [
+      okButton,
+    ];
+  }
+
+  // Configuración de la alerta
+  AlertDialog alert = AlertDialog(
+    title: Text(Message_title),
+    content: Text(Message_Body),
+    actions: actions,
+  );
+
+  // Mostrar alerta
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
